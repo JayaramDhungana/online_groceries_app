@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Ink bigButtonWidget({
+InkWell bigButtonWidget({
   required double width,
   required double height,
   required Color color,
   required double radius,
   required Text text,
+  required void Function()? onTap,
 }) {
-  return Ink(
-    child: Container(
+  return InkWell(
+    borderRadius: BorderRadius.circular(radius),
+    onTap: onTap,
+    child: Ink(
       height: height.h,
       width: width.w,
       decoration: BoxDecoration(

@@ -4,18 +4,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/product_detail_screen/product_detail_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/addToCardButton.dart';
 
-Ink cardWidget({
+InkWell cardWidget({
   required ImageProvider<Object> productImage,
   required String productName,
   required String productPieces,
   required String productPrice,
   required int index,
+  required void Function()? onTap,
   context,
 }) {
-  return Ink(
-    width: 173.32.w,
-    height: 248.51.h,
-    color: Color(0xFFFFFFFF),
+  return InkWell(
+    onTap:onTap ,
     child: Ink(
       width: 173.32.w,
       height: 248.51.h,
@@ -23,15 +22,11 @@ Ink cardWidget({
         borderRadius: BorderRadius.circular(18.r),
         border: Border.all(color: Color(0xFFE2E2E2), width: 1.w),
       ),
-
+    
       child: Column(
         children: [
           RPadding(
-            padding: const EdgeInsets.only(
-              top: 25.21,
-              left: 33.84,
-              right: 39.27,
-            ),
+            padding: const EdgeInsets.only(top: 25.21, left: 33.84, right: 39.27),
             child: SizedBox(
               width: 99.89.w,
               height: 79.43.h,
@@ -44,11 +39,7 @@ Ink cardWidget({
           ),
           //For Product Name
           RPadding(
-            padding: const EdgeInsets.only(
-              left: 14.95,
-              top: 25.26,
-              right: 21.02,
-            ),
+            padding: const EdgeInsets.only(left: 14.95, top: 25.26, right: 21.02),
             child: SizedBox(
               width: 137.02.w,
               height: 18.h,

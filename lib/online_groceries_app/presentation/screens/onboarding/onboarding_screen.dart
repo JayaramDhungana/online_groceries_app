@@ -118,6 +118,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         );
                       },
                       child: bigButtonWidget(
+                        onTap: (){},
                         color: Color(0xFF53B175),
                         height: 67.h,
                         width: 353.w,

@@ -265,6 +265,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 }
               },
               child: bigButtonWidget(
+                onTap: (){},
                 height: 67.h,
                 width: 364.w,
                 color: Color(0xFF53B175),

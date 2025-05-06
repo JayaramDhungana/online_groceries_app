@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/account_menu_widget.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/widgets/account_show_dialog_widget.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/log_out_button_widget.dart';
 
 class AccountUi extends StatefulWidget {
@@ -82,71 +83,93 @@ class _AccountUiState extends State<AccountUi> {
             ),
 
             //For other Menus
-            InkWell(
-              onTap: () {},
-
-              borderRadius: BorderRadius.circular(19.r),
-
-              child: accountMenuWidget(
-                leadingImage: AssetImage("assets/Orders icon.png"),
-                title: "Orders",
-              ),
+            accountMenuWidget(
+              onTap: () {
+                accountShowDialogWidget(
+                  context: context,
+                  title: "Your Order",
+                  detail: "Your order count is 5",
+                );
+              },
+              leadingImage: AssetImage("assets/Orders icon.png"),
+              title: "Orders",
             ),
-            InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(19.r),
-              child: accountMenuWidget(
-                leadingImage: AssetImage("assets/My Details icon.png"),
-                title: "My Details",
-              ),
+            accountMenuWidget(
+              onTap: () {
+                accountShowDialogWidget(
+                  context: context,
+                  title: "Your Details",
+                  detail: "Your Name is Afsar Hossen",
+                );
+              },
+              leadingImage: AssetImage("assets/My Details icon.png"),
+              title: "My Details",
             ),
-            InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(19.r),
-              child: accountMenuWidget(
-                leadingImage: AssetImage("assets/Delicery address.png"),
-                title: "Delivery Address",
-              ),
+            accountMenuWidget(
+              onTap: () {
+                accountShowDialogWidget(
+                  context: context,
+                  title: "Delivery Address",
+                  detail: "alkjsdhflakdsjfkkasdklfh",
+                );
+              },
+              leadingImage: AssetImage("assets/Delicery address.png"),
+              title: "Delivery Address",
             ),
-            InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(19.r),
-              child: accountMenuWidget(
-                leadingImage: AssetImage("assets/payment_methods.png"),
-                title: "Payment Methods",
-              ),
+            accountMenuWidget(
+              onTap: () {
+                accountShowDialogWidget(
+                  context: context,
+                  title: "Payment Methods",
+                  detail: "adfaldkjf asdflkjasf asldkfja ",
+                );
+              },
+              leadingImage: AssetImage("assets/payment_methods.png"),
+              title: "Payment Methods",
             ),
-            InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(19.r),
-              child: accountMenuWidget(
-                leadingImage: AssetImage("assets/promo_card_icon.png"),
-                title: "Promo Cord",
-              ),
+            accountMenuWidget(
+              onTap: () {
+                accountShowDialogWidget(
+                  context: context,
+                  title: "Promo Card",
+                  detail: "askdjfh adkjfh alakjdhf ",
+                );
+              },
+              leadingImage: AssetImage("assets/promo_card_icon.png"),
+              title: "Promo Cord",
             ),
-            InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(19.r),
-              child: accountMenuWidget(
-                leadingImage: AssetImage("assets/bell_icon.png"),
-                title: "Notifications",
-              ),
+            accountMenuWidget(
+              onTap: () {
+                accountShowDialogWidget(
+                  context: context,
+                  title: "Notifications",
+                  detail: "aksjhdffl askldfjh laksjdhf",
+                );
+              },
+              leadingImage: AssetImage("assets/bell_icon.png"),
+              title: "Notifications",
             ),
-            InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(19.r),
-              child: accountMenuWidget(
-                leadingImage: AssetImage("assets/help_icon.png"),
-                title: "Help",
-              ),
+            accountMenuWidget(
+              onTap: () {
+                accountShowDialogWidget(
+                  context: context,
+                  title: "Help",
+                  detail: "ALSDKJFH ALSKDJHF ",
+                );
+              },
+              leadingImage: AssetImage("assets/help_icon.png"),
+              title: "Help",
             ),
-            InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(19.r),
-              child: accountMenuWidget(
-                leadingImage: AssetImage("assets/about_icon.png"),
-                title: "About",
-              ),
+            accountMenuWidget(
+              onTap: () {
+                accountShowDialogWidget(
+                  context: context,
+                  title: "About ",
+                  detail: "App Version is 2.1.0",
+                );
+              },
+              leadingImage: AssetImage("assets/about_icon.png"),
+              title: "About",
             ),
             RPadding(
               padding: const EdgeInsets.only(top: 52.33),

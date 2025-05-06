@@ -149,8 +149,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       exclusiveOfferProductsFromProvider[index];
                   return Padding(
                     padding: const EdgeInsets.only(right: 15.18, top: 20),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(18.r),
+                    child: cardWidget(
                       onTap: () {
                         Navigator.push(
                           context,
@@ -160,24 +159,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   index: index,
                                   image: AssetImage(
                                     exclusiveOfferProductsToShow.imageUrl,
-                                  ) ,
-                                 
-                                 productName:  exclusiveOfferProductsToShow.productName,
+                                  ),
+                                  productImageUrl:  exclusiveOfferProductsToShow.imageUrl,
+                                  productName:
+                                      exclusiveOfferProductsToShow.productName,
+                                  productPrice:
+                                      exclusiveOfferProductsToShow.productPrice,
+                                  productPieces:
+                                      exclusiveOfferProductsToShow
+                                          .productPieces,
                                 ),
                           ),
                         );
                       },
-                      child: cardWidget(
-                        index: index,
-                        context: context,
-                        productImage: AssetImage(
-                          exclusiveOfferProductsToShow.imageUrl,
-                        ),
-                        productName: exclusiveOfferProductsToShow.productName,
-                        productPieces:
-                            exclusiveOfferProductsToShow.productPieces,
-                        productPrice: exclusiveOfferProductsToShow.productPrice,
+                      index: index,
+                      context: context,
+                      productImage: AssetImage(
+                        exclusiveOfferProductsToShow.imageUrl,
                       ),
+                      productName: exclusiveOfferProductsToShow.productName,
+                      productPieces: exclusiveOfferProductsToShow.productPieces,
+                      productPrice: exclusiveOfferProductsToShow.productPrice,
                     ),
                   );
                 },
@@ -196,7 +198,29 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   return RPadding(
                     padding: const EdgeInsets.only(right: 15.18, top: 20),
                     child: cardWidget(
-                       index: index,
+                      index: index,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => ProductDetailScreen(
+                                  index: index,
+                                  productImageUrl:BestSellingProductsToShow.imageUrl ,
+                                  image: AssetImage(
+                                    BestSellingProductsToShow.imageUrl,
+                                  ),
+
+                                  productName:
+                                      BestSellingProductsToShow.productName,
+                                  productPrice:
+                                      BestSellingProductsToShow.productPrice,
+                                  productPieces:
+                                      BestSellingProductsToShow.productPieces,
+                                ),
+                          ),
+                        );
+                      },
                       productImage: AssetImage(
                         BestSellingProductsToShow.imageUrl,
                       ),
@@ -241,7 +265,29 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   return RPadding(
                     padding: const EdgeInsets.only(left: 24.71),
                     child: cardWidget(
-                       index: index,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => ProductDetailScreen(
+                                  productImageUrl: groceriesProductsToShow.imageUrl ,
+                                  index: index,
+                                  image: AssetImage(
+                                    groceriesProductsToShow.imageUrl,
+                                  ),
+
+                                  productName:
+                                      groceriesProductsToShow.productName,
+                                  productPrice:
+                                      groceriesProductsToShow.productPrice,
+                                  productPieces:
+                                      groceriesProductsToShow.productPieces,
+                                ),
+                          ),
+                        );
+                      },
+                      index: index,
                       productImage: AssetImage(
                         groceriesProductsToShow.imageUrl,
                       ),

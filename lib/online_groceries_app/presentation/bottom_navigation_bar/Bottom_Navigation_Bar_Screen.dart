@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/account/account_ui.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/cart/cart_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/explore/explore_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/bottom_nav_bar_provider.dart';
@@ -18,10 +19,9 @@ class _BottomNavigationBarScreenState
   List<Widget> bottomNavBarItemList = [
     HomeScreen(),
     ExploreScreen(),
-    Center(child: Text("Cart")),
+    CartScreen(),
     Center(child: Text("Favorite")),
     AccountUi(),
-    
   ];
 
   void onItemTapped(int index) {
