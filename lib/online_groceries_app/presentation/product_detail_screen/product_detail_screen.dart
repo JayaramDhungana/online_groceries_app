@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_groceries_app/online_groceries_app/data/Cart/cart_data_model.dart';
+import 'package:online_groceries_app/online_groceries_app/data/favourite/favourite_data_model.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/bottom_navigation_bar/Bottom_Navigation_Bar_Screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/cart/cart_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/cart_provider.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/favourite_Item_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/product_detail_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/big_button_widget.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/widgets/bottom_nav_bar_provider.dart';
 
 class ProductDetailScreen extends ConsumerStatefulWidget {
   ImageProvider<Object> image;
@@ -33,7 +37,29 @@ class ProductDetailScreen extends ConsumerStatefulWidget {
 
 class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   @override
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(productDetailProvider).resetProductCount();
+    });
+  }
+
   Widget build(BuildContext context) {
+    final productCountFromProvider =
+        ref.watch(productDetailProvider).productCount;
+    final updatedProductPrice =
+        productCountFromProvider * double.parse(widget.productPrice);
+
+    final productInCartFromProvider = ref.watch(cartProvider).productInCart;
+    final favouriteProductsFromProvider =
+        ref.watch(favouriteItemProvider).favouriteProducts;
+
+    bool isProductFavourite = favouriteProductsFromProvider.any(
+      (items) => items.productName == widget.productName,
+    );
+
     return Scaffold(
       body: Column(
         children: [
@@ -110,7 +136,28 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                   ),
                 ),
                 Spacer(),
-                Icon(Icons.favorite_outline),
+
+                InkWell(
+                  onTap: () {
+                    ref
+                        .read(favouriteItemProvider)
+                        .addFavouriteProduct(
+                          favouriteDataModelFromUI: FavouriteDataModel(
+                            imageUrl: widget.productImageUrl,
+                            productName: widget.productName,
+                            productPieces: widget.productPieces,
+                            productPrice: double.parse(widget.productPrice),
+                          ),
+                          favouriteProductNameFromUI: widget.productName,
+                        );
+                  },
+                  child: Icon(
+                    isProductFavourite
+                        ? Icons.favorite
+                        : Icons.favorite_outline,
+                    color: isProductFavourite ? Colors.red : Colors.black,
+                  ),
+                ),
               ],
             ),
           ),
@@ -214,7 +261,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                 RPadding(
                   padding: const EdgeInsets.only(right: 25.1),
                   child: Text(
-                    "\$${widget.productPrice}",
+                    "\$${updatedProductPrice}",
                     style: TextStyle(
                       fontFamily: 'Gilory',
                       fontWeight: FontWeight.w600,
@@ -350,14 +397,27 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                 ref
                     .read(cartProvider)
                     .addProductToCart(
-                      productImageFromUI: widget.productImageUrl,
+                      // productImageFromUI: widget.productImageUrl,
                       productNamefromUI: widget.productName,
-                      productPiecesFromUI: widget.productPieces,
-                      productPriceFromUI: widget.productPrice,
+                      // productPiecesFromUI: widget.productPieces,
+                      // productPriceFromUI: updatedProductPrice,
+                      // productCountFromUI: productCountFromProvider,
+                      // initialProductPriceFromUI: widget.productPrice,
+                      cartDataModelFromUI: CartDataModel(
+                        imageUrl: widget.productImageUrl,
+                        productName: widget.productName,
+                        productPieces: widget.productPieces,
+                        productCount: productCountFromProvider,
+                        productPrice: updatedProductPrice,
+                        initialProductPrice: double.parse(widget.productPrice),
+                      ),
                     );
+                ref.read(bottomNavBarProvider).changeSelectedIndex(2);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => BottomNavigationBarScreen(),
+                  ),
                 );
               },
               width: 364.w,

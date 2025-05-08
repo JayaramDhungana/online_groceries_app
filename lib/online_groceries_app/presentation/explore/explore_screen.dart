@@ -55,27 +55,28 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
         children: [
           searchTextFormFieldWidget(focusNode: searchFocusNode),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 25.01, right: 24.99),
-              child: SizedBox(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15.w,
-                    mainAxisSpacing: 15.h,
-                  ),
-                  itemCount: exploreDataFromProvider.length,
-                  itemBuilder: (context, index) {
-                    final exploreDataToShow = exploreDataFromProvider[index];
-                    return exploreScreenWidget(
-                      splashColor: exploreDataToShow.borderColor,
-                      boarderColor: exploreDataToShow.borderColor,
-                      color: exploreDataToShow.color,
-                      image: AssetImage(exploreDataToShow.imageUrl),
-                      text: exploreDataToShow.name,
-                    );
-                  },
+            child: RPadding(
+              padding: const EdgeInsets.only(left: 25.01, right: 27.54),
+              child: GridView.builder(
+                scrollDirection: Axis.vertical,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 14.8.w,
+                  mainAxisSpacing: 15.04.h,
                 ),
+                itemCount: exploreDataFromProvider.length,
+                itemBuilder: (context, index) {
+                  final exploreDataToShow = exploreDataFromProvider[index];
+                  return exploreScreenWidget(
+                    ref: ref,
+                    context: context,
+                    splashColor: exploreDataToShow.borderColor,
+                    boarderColor: exploreDataToShow.borderColor,
+                    color: exploreDataToShow.color,
+                    image: AssetImage(exploreDataToShow.imageUrl),
+                    text: exploreDataToShow.name,
+                  );
+                },
               ),
             ),
           ),

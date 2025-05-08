@@ -14,7 +14,7 @@ InkWell cardWidget({
   context,
 }) {
   return InkWell(
-    onTap:onTap ,
+    onTap: onTap,
     child: Ink(
       width: 173.32.w,
       height: 248.51.h,
@@ -22,11 +22,15 @@ InkWell cardWidget({
         borderRadius: BorderRadius.circular(18.r),
         border: Border.all(color: Color(0xFFE2E2E2), width: 1.w),
       ),
-    
+
       child: Column(
         children: [
           RPadding(
-            padding: const EdgeInsets.only(top: 25.21, left: 33.84, right: 39.27),
+            padding: const EdgeInsets.only(
+              top: 25.21,
+              left: 33.84,
+              right: 39.27,
+            ),
             child: SizedBox(
               width: 99.89.w,
               height: 79.43.h,
@@ -39,7 +43,11 @@ InkWell cardWidget({
           ),
           //For Product Name
           RPadding(
-            padding: const EdgeInsets.only(left: 14.95, top: 25.26, right: 21.02),
+            padding: const EdgeInsets.only(
+              left: 14.95,
+              top: 25.26,
+              right: 21.02,
+            ),
             child: SizedBox(
               width: 137.02.w,
               height: 18.h,

@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/account/account_ui.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/cart/cart_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/explore/explore_screen.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/favourite/favourite_screen.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/product_detail_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/bottom_nav_bar_provider.dart';
 
@@ -20,12 +22,21 @@ class _BottomNavigationBarScreenState
     HomeScreen(),
     ExploreScreen(),
     CartScreen(),
-    Center(child: Text("Favorite")),
+    FavouriteScreen(),
     AccountUi(),
   ];
 
   void onItemTapped(int index) {
     ref.read(bottomNavBarProvider).changeSelectedIndex(index);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(productDetailProvider).resetProductCount();
+    });
   }
 
   @override

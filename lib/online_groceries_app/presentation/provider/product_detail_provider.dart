@@ -13,8 +13,13 @@ class ProductDetailProvider extends ChangeNotifier {
     debugPrint("Decrease button is Pressed");
     if (productCount > 1) {
       productCount = productCount - 1;
-    } 
+    }
 
+    notifyListeners();
+  }
+
+  void resetProductCount() {
+    productCount = 1;
     notifyListeners();
   }
 }

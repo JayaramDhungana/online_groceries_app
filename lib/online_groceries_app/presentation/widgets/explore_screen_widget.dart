@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/beverages/beverages_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/beverages_provider.dart';
 
 Ink exploreScreenWidget({
   required Color color,
@@ -7,13 +10,22 @@ Ink exploreScreenWidget({
   required ImageProvider<Object> image,
   required String text,
   required Color splashColor,
+  required BuildContext context,
+  required WidgetRef ref,
 }) {
   return Ink(
     child: InkWell(
       borderRadius: BorderRadius.circular(18),
       splashColor: splashColor,
       onTap: () {
-        debugPrint("tapped");
+        ref.read(beveragesProvider).loadBeveragesProducts();
+
+        if (text == "Beverages") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => BeveragesScreen()),
+          );
+        }
       },
       // splashColor: Colors.red,
       child: Ink(
