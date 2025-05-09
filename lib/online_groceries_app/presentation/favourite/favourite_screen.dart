@@ -56,6 +56,8 @@ class _FavouriteScreenState extends ConsumerState<FavouriteScreen> {
                             favouriteProductsFromProvider[index];
 
                         return favouriteItemsWidget(
+                          ref: ref,
+                          context: context,
                           image: AssetImage(favouriteProductsToShow.imageUrl),
                           productName: favouriteProductsToShow.productName,
                           productPieces: favouriteProductsToShow.productPieces,
@@ -82,6 +84,7 @@ class _FavouriteScreenState extends ConsumerState<FavouriteScreen> {
                       fontSize: 18.sp,
                       height: (18 / 18).h,
                       letterSpacing: 0,
+                      color: Color(0xFFFCFCFC),
                     ),
                   ),
                   onTap: () {},

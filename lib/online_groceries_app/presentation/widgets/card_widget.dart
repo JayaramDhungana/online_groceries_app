@@ -15,6 +15,7 @@ InkWell cardWidget({
 }) {
   return InkWell(
     onTap: onTap,
+    borderRadius: BorderRadius.circular(18.r),
     child: Ink(
       width: 173.32.w,
       height: 248.51.h,

@@ -39,7 +39,7 @@ Column cartShowingWidget({
                         //This Sized Box is only for Product Name
                         SizedBox(
                           height: 18.h,
-                          width: 137.02.w,
+                          // width: 137.02.w,
                           child: Text(
                             productName,
                             style: TextStyle(
@@ -60,10 +60,13 @@ Column cartShowingWidget({
                                 .read(cartProvider)
                                 .removeProductFromCount(productIndex);
                           },
-                          child: Image(
-                            image: AssetImage("assets/close_icon.png"),
-                            height: 14.h,
-                            width: 14.16.w,
+                          child: Hero(
+                            tag: productName,
+                            child: Image(
+                              image: AssetImage("assets/close_icon.png"),
+                              height: 14.h,
+                              width: 14.16.w,
+                            ),
                           ),
                         ),
                       ],
@@ -75,7 +78,7 @@ Column cartShowingWidget({
                         children: [
                           SizedBox(
                             height: 14.89.h,
-                            width: 72.27.w,
+                            // width: 72.27.w,
                             child: Text(
                               "$productPieces,Price",
                               style: TextStyle(

@@ -5,6 +5,7 @@ import 'package:online_groceries_app/online_groceries_app/data/best_selling/best
 
 class CartProvider extends ChangeNotifier {
   List<CartDataModel> productInCart = [];
+  double totalMoney = 0;
 
   void addProductToCart({
     required productNamefromUI,
@@ -69,6 +70,16 @@ class CartProvider extends ChangeNotifier {
   void removeProductFromCount(indexFromUi) {
     productInCart.removeAt(indexFromUi);
     notifyListeners();
+  }
+
+  //To Calculate total Price in Cart
+  void calculateTotalMoney() {
+    for (int i = 0; i < productInCart.length; i++) {
+      double moneyOfOneItem = productInCart[i].productPrice;
+      totalMoney = totalMoney + moneyOfOneItem;
+    }
+    notifyListeners();
+    debugPrint(" Total Money of Item in cart is $totalMoney");
   }
 }
 
