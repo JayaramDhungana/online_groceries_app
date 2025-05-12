@@ -26,9 +26,10 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           ),
-          home: BottomNavigationBarScreen(),
-          // HomeScreen(),
-          // const SplashScreen(),
+          home:
+              // BottomNavigationBarScreen(),
+              // HomeScreen(),
+              SplashScreen(),
         );
       },
     );

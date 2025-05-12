@@ -6,7 +6,9 @@ import 'package:online_groceries_app/online_groceries_app/data/ExclusiveOffer/ex
 import 'package:online_groceries_app/online_groceries_app/data/ExclusiveOffer/exclusive_offer_data_model.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/product_detail_screen/product_detail_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/best_selling_provider.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/cart_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/exclusive_offer_provider.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/favourite_Item_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/groceries_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/addToCardButton.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/card_widget.dart';
@@ -32,6 +34,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ref.read(exclusiveOfferProvider).loadExclusiveOfferData();
       ref.read(bestSellingProvider).loadBestSellingProducts();
       ref.read(groceriesProvider).loadGroceriesProduct();
+      ref.read(favouriteItemProvider).loadFavouriteItemsFromSharedPreferences();
+      ref.read(cartProvider).loadItemsFromSharedPreferences();
     });
   }
 
@@ -160,7 +164,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   image: AssetImage(
                                     exclusiveOfferProductsToShow.imageUrl,
                                   ),
-                                  productImageUrl:  exclusiveOfferProductsToShow.imageUrl,
+                                  productImageUrl:
+                                      exclusiveOfferProductsToShow.imageUrl,
                                   productName:
                                       exclusiveOfferProductsToShow.productName,
                                   productPrice:
@@ -206,7 +211,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             builder:
                                 (context) => ProductDetailScreen(
                                   index: index,
-                                  productImageUrl:BestSellingProductsToShow.imageUrl ,
+                                  productImageUrl:
+                                      BestSellingProductsToShow.imageUrl,
                                   image: AssetImage(
                                     BestSellingProductsToShow.imageUrl,
                                   ),
@@ -271,7 +277,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           MaterialPageRoute(
                             builder:
                                 (context) => ProductDetailScreen(
-                                  productImageUrl: groceriesProductsToShow.imageUrl ,
+                                  productImageUrl:
+                                      groceriesProductsToShow.imageUrl,
                                   index: index,
                                   image: AssetImage(
                                     groceriesProductsToShow.imageUrl,

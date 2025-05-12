@@ -11,6 +11,24 @@ class FavouriteDataModel {
     required this.productPrice,
   });
 
+  factory FavouriteDataModel.fromJson(Map<String, dynamic> json) {
+    return FavouriteDataModel(
+      imageUrl: json["imageUrl"],
+      productName: json["productName"],
+      productPieces: json["productPieces"],
+      productPrice: json["productPrice"],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'imageUrl': imageUrl,
+      'productName': productName,
+      'productPieces': productPieces,
+      'productPrice': productPrice,
+    };
+  }
+
   @override
   String toString() {
     return "imageUrl:$imageUrl,productName:$productName,productPieces:$productPieces,productPrice:$productPrice";

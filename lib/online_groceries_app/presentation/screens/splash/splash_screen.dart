@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/screens/onboarding/onboarding_screen.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -17,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Timer(
-      Duration(seconds: 5),
+      Duration(seconds: 3),
       () => Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => OnboardingScreen()),

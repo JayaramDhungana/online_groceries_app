@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/bottom_navigation_bar/Bottom_Navigation_Bar_Screen.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/cart_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/favourite_Item_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/big_button_widget.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/widgets/bottom_nav_bar_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/favourite_items_widget.dart';
 
 class FavouriteScreen extends ConsumerStatefulWidget {
@@ -13,6 +16,15 @@ class FavouriteScreen extends ConsumerStatefulWidget {
 }
 
 class _FavouriteScreenState extends ConsumerState<FavouriteScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(favouriteItemProvider).loadFavouriteItemsFromSharedPreferences();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final favouriteProductsFromProvider =
@@ -87,7 +99,20 @@ class _FavouriteScreenState extends ConsumerState<FavouriteScreen> {
                       color: Color(0xFFFCFCFC),
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    ref
+                        .read(cartProvider)
+                        .addFavouriteProductsIntoCart(
+                          favouriteItemsFromUI: favouriteProductsFromProvider,
+                        );
+                    ref.read(bottomNavBarProvider).changeSelectedIndex(2);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BottomNavigationBarScreen(),
+                      ),
+                    );
+                  },
                 ),
               ),
         ],

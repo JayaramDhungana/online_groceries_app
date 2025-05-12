@@ -97,7 +97,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         textAlign: TextAlign.center,
                         "Get your grocerries in as fast as one hour",
                         style: GoogleFonts.glory(
-                          color: Color(0xFCFCFCB2),
+                          color: Color(0xFFFCFCFC),
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w400,
                           height: (15 / 16).h,
@@ -108,17 +108,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   RPadding(
                     padding: EdgeInsets.only(top: 40.88),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SignUpScreen(),
-                          ),
-                        );
-                      },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFF53B175),
+                        borderRadius: BorderRadius.circular(19.r),
+                      ),
+
                       child: bigButtonWidget(
-                        onTap: (){},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignUpScreen(),
+                            ),
+                          );
+                        },
                         color: Color(0xFF53B175),
                         height: 67.h,
                         width: 353.w,

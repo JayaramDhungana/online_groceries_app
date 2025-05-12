@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/bottom_navigation_bar/Bottom_Navigation_Bar_Screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/sign_up_Validation_provider.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/user_information_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/big_button_widget.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/sign_up_text_field_widget.dart';
@@ -253,31 +255,37 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               ),
             ),
             SizedBox(height: 30.003.h),
-            InkWell(
+            bigButtonWidget(
               onTap: () {
                 if (formKey.currentState!.validate()) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => BottomNavigationBarScreen(),
+                    ),
                   );
+                  ref
+                      .read(userInformationProvider)
+                      .storeUserInfromation(
+                        userNameFromUI: textControllerForUsername.text,
+                        emailFromUI: textControllerForEmail.text,
+                        passwordFromUI: textControllerForPassword.text,
+                      );
                 } else {
                   debugPrint("It is not validated Properly");
                 }
               },
-              child: bigButtonWidget(
-                onTap: (){},
-                height: 67.h,
-                width: 364.w,
-                color: Color(0xFF53B175),
-                radius: 19.r,
-                text: Text(
-                  "Sign Up",
-                  style: GoogleFonts.glory(
-                    color: Color(0xFFFFF9FF),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18.sp,
-                    height: (18 / 18).h,
-                  ),
+              height: 67.h,
+              width: 364.w,
+              color: Color(0xFF53B175),
+              radius: 19.r,
+              text: Text(
+                "Sign Up",
+                style: GoogleFonts.glory(
+                  color: Color(0xFFFFF9FF),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18.sp,
+                  height: (18 / 18).h,
                 ),
               ),
             ),

@@ -22,14 +22,27 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(productDetailProvider).resetProductCount();
-      ref.read(cartProvider).calculateTotalMoney();
+      ref.read(cartProvider).loadItemsFromSharedPreferences();
+      // ref.read(cartProvider).calculateTotalMoney();
     });
   }
+
+  double totalMoney = 0;
+
+  // double calculateTotalMoney(final cartItemsFromProvider) {
+  //   for (int i = 0; i < cartItemsFromProvider.length; i++) {
+  //     double moneyOfOneItem = cartItemsFromProvider[i].productPrice;
+  //     totalMoney = totalMoney + moneyOfOneItem;
+  //     debugPrint("The total money is :$totalMoney");
+  //   }
+  //   return totalMoney;
+  // }
 
   @override
   Widget build(BuildContext context) {
     final cartItemsFromProvider = ref.watch(cartProvider).productInCart;
-
+    // calculateTotalMoney(cartItemsFromProvider);
+    totalMoney = 0;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -65,6 +78,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       itemBuilder: (context, index) {
                         final cartItemsToShow = cartItemsFromProvider[index];
 
+                        totalMoney = totalMoney + cartItemsToShow.productPrice;
                         return cartShowingWidget(
                           productName: cartItemsToShow.productName,
                           productImage: AssetImage(cartItemsToShow.imageUrl),
@@ -162,7 +176,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
                                 bottomSheetWidget(
                                   titleText: "Total Cost",
-                                  subTittle: "\$13.97",
+                                  subTittle: totalMoney.toString(),
                                 ),
                                 RPadding(
                                   padding: const EdgeInsets.only(
