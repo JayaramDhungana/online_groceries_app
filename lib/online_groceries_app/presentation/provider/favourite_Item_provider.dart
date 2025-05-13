@@ -38,10 +38,10 @@ class FavouriteItemProvider extends ChangeNotifier {
         favouriteItemsFromSharedPreferences
             .map((item) => FavouriteDataModel.fromJson(jsonDecode(item)))
             .toList();
+
+    debugPrint("Favourites Products are : $favouriteProducts");
     notifyListeners();
   }
-
-
 }
 
 final favouriteItemProvider = ChangeNotifierProvider((ref) {

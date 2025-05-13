@@ -29,6 +29,10 @@ class _FavouriteScreenState extends ConsumerState<FavouriteScreen> {
   Widget build(BuildContext context) {
     final favouriteProductsFromProvider =
         ref.watch(favouriteItemProvider).favouriteProducts;
+
+    debugPrint(
+      "Favourite Products in screen ${favouriteProductsFromProvider.length}",
+    );
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -52,33 +56,35 @@ class _FavouriteScreenState extends ConsumerState<FavouriteScreen> {
             width: 413.6.w,
             decoration: BoxDecoration(color: Color(0xFFE2E2E2)),
           ),
-          Expanded(
-            child:
-                favouriteProductsFromProvider.isEmpty
-                    ? Center(
-                      child: Text(
-                        "There is no Favourite Item",
-                        style: TextStyle(fontFamily: 'Gilory', fontSize: 30),
-                      ),
-                    )
-                    : ListView.builder(
-                      itemCount: favouriteProductsFromProvider.length,
-                      itemBuilder: (context, index) {
-                        final favouriteProductsToShow =
-                            favouriteProductsFromProvider[index];
+          favouriteProductsFromProvider.isEmpty
+              ? Center(
+                child: Text(
+                  "There is no Favourite Item",
+                  style: TextStyle(fontFamily: 'Gilory', fontSize: 30),
+                ),
+              )
+              : Expanded(
+                child: ListView.builder(
+                  itemCount: favouriteProductsFromProvider.length,
+                  itemBuilder: (context, index) {
+                    final favouriteProductsToShow =
+                        favouriteProductsFromProvider[index];
 
-                        return favouriteItemsWidget(
-                          ref: ref,
-                          context: context,
-                          image: AssetImage(favouriteProductsToShow.imageUrl),
-                          productName: favouriteProductsToShow.productName,
-                          productPieces: favouriteProductsToShow.productPieces,
-                          productPrice: favouriteProductsToShow.productPrice,
-                        );
-                      },
-                    ),
-          ),
-          Spacer(),
+                    return favouriteItemsWidget(
+                      listItems: favouriteProductsToShow,
+
+                      index: index,
+                      productImageUrl: favouriteProductsToShow.imageUrl,
+                      ref: ref,
+                      context: context,
+                      image: AssetImage(favouriteProductsToShow.imageUrl),
+                      productName: favouriteProductsToShow.productName,
+                      productPieces: favouriteProductsToShow.productPieces,
+                      productPrice: favouriteProductsToShow.productPrice,
+                    );
+                  },
+                ),
+              ),
           favouriteProductsFromProvider.isEmpty
               ? SizedBox()
               : RPadding(

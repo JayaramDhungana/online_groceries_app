@@ -50,7 +50,7 @@ class SharedpreferencesData {
     List<String> favouriteItemsFromSharedPreferences =
         prefs.getStringList(keyForFavouriteItem) ?? [];
     debugPrint(
-      "Data is Successfully Extracted $favouriteItemsFromSharedPreferences",
+      " Favourite Data is Successfully Extracted $favouriteItemsFromSharedPreferences",
     );
     return favouriteItemsFromSharedPreferences;
   }

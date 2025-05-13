@@ -1,4 +1,4 @@
-import 'package:online_groceries_app/online_groceries_app/data/beverages/beverages_data_model.dart';
+
 
 List<Map<String, dynamic>> beveragesDataList = [
   {

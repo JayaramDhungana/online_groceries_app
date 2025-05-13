@@ -1,18 +1,18 @@
-class BeveragesDataModel {
+class ExploreProductDataModel {
   final String imageUrl;
   final String productName;
   final String productPieces;
   final String productPrice;
 
-  BeveragesDataModel({
+  ExploreProductDataModel({
     required this.imageUrl,
     required this.productName,
     required this.productPieces,
     required this.productPrice,
   });
 
-  factory BeveragesDataModel.fromJson(Map<String, dynamic> json) {
-    return BeveragesDataModel(
+  factory ExploreProductDataModel.fromJson(Map<String, dynamic> json) {
+    return ExploreProductDataModel(
       imageUrl: json["imageUrl"],
       productName: json["productName"],
       productPieces: json["productPieces"],

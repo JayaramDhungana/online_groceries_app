@@ -57,7 +57,8 @@ class _BeveragesScreenState extends ConsumerState<BeveragesScreen> {
                   final beveragesProductsToShow =
                       beveragesItemsFromProvider[index];
                   return cardWidget(
-                    productImage: AssetImage(beveragesProductsToShow.imageUrl),
+                    productImage: AssetImage(
+                      beveragesProductsToShow.imageUrl),
                     productName: beveragesProductsToShow.productName,
                     productPieces: beveragesProductsToShow.productPieces,
                     productPrice: beveragesProductsToShow.productPrice,

@@ -185,7 +185,8 @@ class _AccountUiState extends ConsumerState<AccountUi> {
                   accountShowDialogWidget(
                     context: context,
                     title: "Your Details",
-                    detail: "Your Name is Afsar Hossen",
+                    detail:
+                        "Name:${ref.watch(userInformationProvider).userName}\nEmail:${ref.watch(userInformationProvider).email}",
                   );
                 },
                 leadingImage: AssetImage("assets/My Details icon.png"),

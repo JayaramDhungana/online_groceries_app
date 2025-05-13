@@ -148,9 +148,14 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                         right: 25,
                                         bottom: 36.73,
                                       ),
-                                      child: Image(
-                                        image: AssetImage(
-                                          "assets/close_icon.png",
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Image(
+                                          image: AssetImage(
+                                            "assets/close_icon.png",
+                                          ),
                                         ),
                                       ),
                                     ),
