@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/bottom_navigation_bar/Bottom_Navigation_Bar_Screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/sign_up_Validation_provider.dart';
@@ -258,12 +259,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             bigButtonWidget(
               onTap: () {
                 if (formKey.currentState!.validate()) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BottomNavigationBarScreen(),
-                    ),
-                  );
+                  context.go("/bottom_nav_bar");
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => BottomNavigationBarScreen(),
+                  //   ),
+                  // );
                   ref
                       .read(userInformationProvider)
                       .storeUserInfromation(

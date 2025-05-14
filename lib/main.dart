@@ -1,13 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/bottom_navigation_bar/Bottom_Navigation_Bar_Screen.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/product_detail_screen/product_detail_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/screens/splash/splash_screen.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/sign_up/sign_up_screen.dart';
 
 void main() {
   runApp(ProviderScope(child: const MyApp()));
 }
+
+final _router = GoRouter(
+  initialLocation: '/bottom_nav_bar',
+  routes: [
+    GoRoute(
+      name: 'splash_screen',
+      path: '/',
+      builder: (context, state) => SplashScreen(),
+    ),
+
+    GoRoute(
+      name: 'sign_up',
+      path: '/sign_up',
+      builder: (context, state) => SignUpScreen(),
+    ),
+
+    GoRoute(
+      path: '/bottom_nav_bar',
+      builder: (context, state) => BottomNavigationBarScreen(),
+    ),
+
+    GoRoute(
+      path: '/Product_details_screen',
+      builder: (context, state) {
+        final stateValue = state.extra! as Map<String, dynamic>;
+        debugPrint(stateValue['productPrice']);
+        return ProductDetailScreen(
+          image: stateValue['image'],
+          productImageUrl: stateValue['productImageUrl'],
+          productName: stateValue['productName'],
+          index: stateValue['index'],
+          productPrice: stateValue['productPrice'],
+          productPieces: stateValue['productPieces'],
+        );
+      },
+    ),
+  ],
+);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,16 +61,16 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {
-        return MaterialApp(
+        return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           ),
-          home:
-              // BottomNavigationBarScreen(),
-              // HomeScreen(),
-              SplashScreen(),
+          routerConfig: _router,
+          // home:
+          //     //  BottomNavigationBarScreen(),
+          //     SplashScreen(),
         );
       },
     );

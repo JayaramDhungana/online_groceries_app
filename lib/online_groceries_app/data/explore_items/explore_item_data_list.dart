@@ -15,13 +15,13 @@ List<Map<String, dynamic>> exploreItemDataList = [
   },
   {
     "imageUrl": "assets/meat&fish.png",
-    "name": "Meat & Fish  ",
+    "name": "Meat & Fish",
     "color": Color(0xFFFDE8E4),
     "borderColor": Color(0xFFF7A593),
   },
   {
     "imageUrl": "assets/bakery&snacks.png",
-    "name": "Bakery &  Snacks  ",
+    "name": "Bakery &  Snacks",
     "color": Color(0xFFF4EBF7),
     "borderColor": Color(0xFFD3B0E0),
   },

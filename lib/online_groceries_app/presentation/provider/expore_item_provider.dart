@@ -4,18 +4,18 @@ import 'package:online_groceries_app/online_groceries_app/data/explore_products/
 import 'package:online_groceries_app/online_groceries_app/data/explore_products/explore_product_data_model.dart';
 
 
-class BeveragesProvider extends ChangeNotifier {
-  List<ExploreProductDataModel> beveragesDataProducts = [];
+class ExporeItemProvider extends ChangeNotifier {
+  List<ExploreProductDataModel> exploreDataProducts = [];
 
-  void loadBeveragesProducts() {
-    beveragesDataProducts =
-        beveragesDataList
+  void loadBeveragesProducts({required List<Map<String, dynamic>> dataListFromUI}) {
+    exploreDataProducts =
+        dataListFromUI
             .map((product) => ExploreProductDataModel.fromJson(product))
             .toList();
     notifyListeners();
   }
 }
 
-final beveragesProvider = ChangeNotifierProvider((ref) {
-  return BeveragesProvider();
+final exploreItemProvider = ChangeNotifierProvider((ref) {
+  return ExporeItemProvider();
 });

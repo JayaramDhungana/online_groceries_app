@@ -2,26 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/product_detail_screen/product_detail_screen.dart';
-import 'package:online_groceries_app/online_groceries_app/presentation/provider/beverages_provider.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/expore_item_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/card_widget.dart';
 
-class BeveragesScreen extends ConsumerStatefulWidget {
-  const BeveragesScreen({super.key});
+class ExploreProductItemScreen extends ConsumerStatefulWidget {
+  final String screenName;
+  const ExploreProductItemScreen({required this.screenName, super.key});
 
   @override
-  ConsumerState<BeveragesScreen> createState() => _BeveragesScreenState();
+  ConsumerState<ExploreProductItemScreen> createState() => _ExploreProductItemScreenState();
 }
 
-class _BeveragesScreenState extends ConsumerState<BeveragesScreen> {
+class _ExploreProductItemScreenState extends ConsumerState<ExploreProductItemScreen> {
   @override
   Widget build(BuildContext context) {
-    final beveragesItemsFromProvider =
-        ref.watch(beveragesProvider).beveragesDataProducts;
+    final exploreItemsFromProvider =
+        ref.watch(exploreItemProvider).exploreDataProducts;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Beverages",
+          widget.screenName,
           style: TextStyle(
             fontFamily: 'Gilory',
             fontWeight: FontWeight.w600,
@@ -37,7 +38,7 @@ class _BeveragesScreenState extends ConsumerState<BeveragesScreen> {
             child: Image(image: AssetImage("assets/beverage_icon.png")),
           ),
         ],
-      ), 
+      ),
       body: Flex(
         direction: Axis.vertical,
         children: [
@@ -47,18 +48,17 @@ class _BeveragesScreenState extends ConsumerState<BeveragesScreen> {
               child: GridView.builder(
                 scrollDirection: Axis.vertical,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 14.8.w, 
+                  crossAxisSpacing: 14.8.w,
                   mainAxisSpacing: 12.04.h,
                   crossAxisCount: 2,
                   mainAxisExtent: 248.51.h,
                 ),
-                itemCount: beveragesItemsFromProvider.length,
+                itemCount: exploreItemsFromProvider.length,
                 itemBuilder: (context, index) {
                   final beveragesProductsToShow =
-                      beveragesItemsFromProvider[index];
+                      exploreItemsFromProvider[index];
                   return cardWidget(
-                    productImage: AssetImage(
-                      beveragesProductsToShow.imageUrl),
+                    productImage: AssetImage(beveragesProductsToShow.imageUrl),
                     productName: beveragesProductsToShow.productName,
                     productPieces: beveragesProductsToShow.productPieces,
                     productPrice: beveragesProductsToShow.productPrice,

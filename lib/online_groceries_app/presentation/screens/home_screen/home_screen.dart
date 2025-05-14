@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:online_groceries_app/online_groceries_app/data/ExclusiveOffer/exclusive_offer_data_List.dart';
 import 'package:online_groceries_app/online_groceries_app/data/ExclusiveOffer/exclusive_offer_data_model.dart';
+import 'package:online_groceries_app/online_groceries_app/data/Groceries/groceries_data_list.dart';
+import 'package:online_groceries_app/online_groceries_app/data/best_selling/best_selling_data_list.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/explore_products_item/explore_product_item_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/product_detail_screen/product_detail_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/best_selling_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/cart_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/exclusive_offer_provider.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/expore_item_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/favourite_Item_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/groceries_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/addToCardButton.dart';
@@ -139,7 +144,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
 
             //This is for products Texts only
-            productsTitleWidget(productsTitle: "Exclusive Offer"),
+            productsTitleWidget(
+              productsTitle: "Exclusive Offer",
+              onTap: () {
+                ref
+                    .read(exploreItemProvider)
+                    .loadBeveragesProducts(
+                      dataListFromUI: exclusiveOfferDataList,
+                    );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder:
+                        (context) => ExploreProductItemScreen(
+                          screenName: "Exclusive Offer",
+                        ),
+                  ),
+                );
+              },
+            ),
 
             //This is for Card of Showing Products.
             SizedBox(
@@ -155,27 +178,47 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     padding: const EdgeInsets.only(right: 15.18, top: 20),
                     child: cardWidget(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (context) => ProductDetailScreen(
-                                  index: index,
-                                  image: AssetImage(
-                                    exclusiveOfferProductsToShow.imageUrl,
-                                  ),
-                                  productImageUrl:
-                                      exclusiveOfferProductsToShow.imageUrl,
-                                  productName:
-                                      exclusiveOfferProductsToShow.productName,
-                                  productPrice:
-                                      exclusiveOfferProductsToShow.productPrice,
-                                  productPieces:
-                                      exclusiveOfferProductsToShow
-                                          .productPieces,
-                                ),
-                          ),
+                        //using Go Router
+                        context.go(
+                          "/Product_details_screen",
+                          extra: {
+                            'image': AssetImage(
+                              exclusiveOfferProductsToShow.imageUrl,
+                            ),
+                            'productImageUrl':
+                                exclusiveOfferProductsToShow.imageUrl,
+                            'productName':
+                                exclusiveOfferProductsToShow.productName,
+                            'index': index,
+                            'productPrice':
+                                exclusiveOfferProductsToShow.productPrice,
+                            'productPieces':
+                                exclusiveOfferProductsToShow.productPieces,
+                          },
                         );
+                        //Using Navigator.push
+
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder:
+                        //         (context) => ProductDetailScreen(
+                        //           index: index,
+                        //           image: AssetImage(
+                        //             exclusiveOfferProductsToShow.imageUrl,
+                        //           ),
+                        //           productImageUrl:
+                        //               exclusiveOfferProductsToShow.imageUrl,
+                        //           productName:
+                        //               exclusiveOfferProductsToShow.productName,
+                        //           productPrice:
+                        //               exclusiveOfferProductsToShow.productPrice,
+                        //           productPieces:
+                        //               exclusiveOfferProductsToShow
+                        //                   .productPieces,
+                        //         ),
+                        //   ),
+                        // );
                       },
                       index: index,
                       context: context,
@@ -190,7 +233,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 },
               ),
             ),
-            productsTitleWidget(productsTitle: "Best Selling"),
+            productsTitleWidget(
+              productsTitle: "Best Selling",
+              onTap: () {
+                ref
+                    .read(exploreItemProvider)
+                    .loadBeveragesProducts(dataListFromUI: bestSellingDataList);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder:
+                        (context) => ExploreProductItemScreen(
+                          screenName: "Best Selling",
+                        ),
+                  ),
+                );
+              },
+            ),
             SizedBox(
               height: 268.h,
               child: ListView.builder(
@@ -238,7 +297,22 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 },
               ),
             ),
-            productsTitleWidget(productsTitle: "Groceries"),
+            productsTitleWidget(
+              productsTitle: "Groceries",
+              onTap: () {
+                ref
+                    .read(exploreItemProvider)
+                    .loadBeveragesProducts(dataListFromUI: groceriesDataList);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder:
+                        (context) =>
+                            ExploreProductItemScreen(screenName: "Groceries"),
+                  ),
+                );
+              },
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 24.71),
               child: SingleChildScrollView(

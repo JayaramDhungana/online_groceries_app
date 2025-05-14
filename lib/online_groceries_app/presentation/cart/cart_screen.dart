@@ -101,6 +101,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   width: 364.w,
                   radius: 19.r,
                   onTap: () {
+                    //This is for BottomSheet showing
                     showModalBottomSheet(
                       context: context,
                       backgroundColor: Color(0xFFF2F3F2),
@@ -181,7 +182,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
                                 bottomSheetWidget(
                                   titleText: "Total Cost",
-                                  subTittle: totalMoney.toString(),
+                                  subTittle: totalMoney.toStringAsFixed(2),
                                 ),
                                 RPadding(
                                   padding: const EdgeInsets.only(

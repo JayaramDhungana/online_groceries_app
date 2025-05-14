@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:online_groceries_app/online_groceries_app/presentation/beverages/beverages_screen.dart';
+import 'package:online_groceries_app/online_groceries_app/data/explore_products/bakery_and_snacks_data_list.dart';
+import 'package:online_groceries_app/online_groceries_app/data/explore_products/beverages_data_list.dart';
+import 'package:online_groceries_app/online_groceries_app/data/explore_products/cooking_oil_and_ghee_data_list.dart';
+import 'package:online_groceries_app/online_groceries_app/data/explore_products/dairy_and_eggs_data_list.dart';
+import 'package:online_groceries_app/online_groceries_app/data/explore_products/fresh_fruits_and_vegetable_list.dart';
+import 'package:online_groceries_app/online_groceries_app/data/explore_products/meat_and_fish_data_list.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/explore_products_item/explore_product_item_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:online_groceries_app/online_groceries_app/presentation/provider/beverages_provider.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/expore_item_provider.dart';
 
 Ink exploreScreenWidget({
   required Color color,
@@ -18,12 +24,67 @@ Ink exploreScreenWidget({
       borderRadius: BorderRadius.circular(18),
       splashColor: splashColor,
       onTap: () {
-        ref.read(beveragesProvider).loadBeveragesProducts();
-
-        if (text == "Beverages") {
+        if (text == "Fresh Fruits & Vegetable") {
+          ref
+              .read(exploreItemProvider)
+              .loadBeveragesProducts(
+                dataListFromUI: freshFruitsaAndVegatableList,
+              );
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => BeveragesScreen()),
+            MaterialPageRoute(
+              builder: (context) => ExploreProductItemScreen(screenName: text),
+            ),
+          );
+        } else if (text == "Cooking Oil & Ghee") {
+          ref
+              .read(exploreItemProvider)
+              .loadBeveragesProducts(dataListFromUI: cookinOilAndGheeDataList);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ExploreProductItemScreen(screenName: text),
+            ),
+          );
+        } else if (text == "Meat & Fish") {
+          ref
+              .read(exploreItemProvider)
+              .loadBeveragesProducts(dataListFromUI: meatAndFishDataList);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ExploreProductItemScreen(screenName: text),
+            ),
+          );
+        } else if (text == "Bakery &  Snacks") {
+          ref
+              .read(exploreItemProvider)
+              .loadBeveragesProducts(dataListFromUI: bakeryAndSnacksDataList);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ExploreProductItemScreen(screenName: text),
+            ),
+          );
+        } else if (text == "Dairy & Eggs") {
+          ref
+              .read(exploreItemProvider)
+              .loadBeveragesProducts(dataListFromUI: dairyAndEggsDataList);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ExploreProductItemScreen(screenName: text),
+            ),
+          );
+        } else if (text == "Beverages") {
+          ref
+              .read(exploreItemProvider)
+              .loadBeveragesProducts(dataListFromUI: beveragesDataList);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ExploreProductItemScreen(screenName: text),
+            ),
           );
         }
       },

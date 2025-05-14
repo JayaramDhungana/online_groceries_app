@@ -53,6 +53,8 @@ InkWell cardWidget({
               width: 137.02.w,
               height: 18.h,
               child: Text(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 productName,
                 style: TextStyle(
                   fontFamily: 'Gilory',

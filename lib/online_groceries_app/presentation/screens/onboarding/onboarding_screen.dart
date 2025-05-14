@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/sign_up/sign_up_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/big_button_widget.dart';
@@ -115,14 +116,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
 
                       child: bigButtonWidget(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignUpScreen(),
-                            ),
-                          );
-                        },
+                        onTap: () => context.go("/sign_up"),
+                        //  {
+                        //   Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => SignUpScreen(),
+                        //     ),
+                        //   );
+                        // },
                         color: Color(0xFF53B175),
                         height: 67.h,
                         width: 353.w,
