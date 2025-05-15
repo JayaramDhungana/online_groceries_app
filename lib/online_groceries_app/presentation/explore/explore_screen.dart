@@ -53,7 +53,9 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
       ),
       body: Column(
         children: [
-          searchTextFormFieldWidget(focusNode: searchFocusNode),
+          searchTextFormFieldWidget(focusNode: searchFocusNode,
+          ref: ref
+          ),
           Expanded(
             child: RPadding(
               padding: const EdgeInsets.only(left: 25.01, right: 27.54),

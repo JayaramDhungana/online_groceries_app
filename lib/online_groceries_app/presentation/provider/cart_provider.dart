@@ -45,7 +45,7 @@ class CartProvider extends ChangeNotifier {
       productCount: productCountForUpdate + 1,
       initialProductPrice: productInCart[indexFromUI].initialProductPrice,
       productPrice: productPriceForUpdate * (productCountForUpdate + 1),
-    );
+    );                                    
     debugPrint(" after button tapped $productInCart.toList.toString()");
     SharedpreferencesData.addCartItemInSharedPreferences(productInCart);
     notifyListeners();

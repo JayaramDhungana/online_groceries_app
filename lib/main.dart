@@ -12,8 +12,8 @@ void main() {
   runApp(ProviderScope(child: const MyApp()));
 }
 
-final _router = GoRouter(
-  initialLocation: '/bottom_nav_bar',
+final GoRouter _router = GoRouter(
+  initialLocation: '/',
   routes: [
     GoRoute(
       name: 'splash_screen',
@@ -36,7 +36,7 @@ final _router = GoRouter(
       path: '/Product_details_screen',
       builder: (context, state) {
         final stateValue = state.extra! as Map<String, dynamic>;
-        debugPrint(stateValue['productPrice']);
+        debugPrint(stateValue['name']);
         return ProductDetailScreen(
           image: stateValue['image'],
           productImageUrl: stateValue['productImageUrl'],

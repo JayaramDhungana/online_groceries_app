@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/search_provider.dart';
 
-RPadding searchTextFormFieldWidget({required FocusNode focusNode}) {
+RPadding searchTextFormFieldWidget({
+  required FocusNode focusNode,
+  required WidgetRef ref,
+}) {
   return RPadding(
     padding: EdgeInsets.only(left: 24.71, right: 25.29, top: 20, bottom: 20),
     child: TextFormField(
       focusNode: focusNode,
       onTapOutside: (event) {
         focusNode.unfocus();
+      },
+      onChanged: (value) {
+        ref.read(searchProvider).onQueryChanged(value);
       },
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.search),

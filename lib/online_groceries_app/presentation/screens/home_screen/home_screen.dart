@@ -178,47 +178,54 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     padding: const EdgeInsets.only(right: 15.18, top: 20),
                     child: cardWidget(
                       onTap: () {
-                        //using Go Router
-                        context.go(
-                          "/Product_details_screen",
-                          extra: {
-                            'image': AssetImage(
-                              exclusiveOfferProductsToShow.imageUrl,
-                            ),
-                            'productImageUrl':
-                                exclusiveOfferProductsToShow.imageUrl,
-                            'productName':
-                                exclusiveOfferProductsToShow.productName,
-                            'index': index,
-                            'productPrice':
-                                exclusiveOfferProductsToShow.productPrice,
-                            'productPieces':
-                                exclusiveOfferProductsToShow.productPieces,
-                          },
-                        );
+                        //using Go Router GO
+                        // try {
+                        //   debugPrint("errror is  started");
+                        //   context.go(
+                        //     "/Product_details_screen",
+                        //     extra: {
+                        //       'image': AssetImage(
+                        //         exclusiveOfferProductsToShow.imageUrl,
+                        //       ),
+                        //       'productImageUrl':
+                        //           exclusiveOfferProductsToShow.imageUrl,
+                        //       'productName':
+                        //           exclusiveOfferProductsToShow.productName,
+                        //       'index': index,
+                        //       'productPrice':
+                        //           exclusiveOfferProductsToShow.productPrice,
+                        //       'productPieces':
+                        //           exclusiveOfferProductsToShow.productPieces,
+                        //     },
+                        //   );
+                        //   debugPrint("errror is  ended");
+                        // } catch (e) {
+                        //   debugPrint("errror is  ${e.toString()}");
+                        // }
+
                         //Using Navigator.push
 
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder:
-                        //         (context) => ProductDetailScreen(
-                        //           index: index,
-                        //           image: AssetImage(
-                        //             exclusiveOfferProductsToShow.imageUrl,
-                        //           ),
-                        //           productImageUrl:
-                        //               exclusiveOfferProductsToShow.imageUrl,
-                        //           productName:
-                        //               exclusiveOfferProductsToShow.productName,
-                        //           productPrice:
-                        //               exclusiveOfferProductsToShow.productPrice,
-                        //           productPieces:
-                        //               exclusiveOfferProductsToShow
-                        //                   .productPieces,
-                        //         ),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) => ProductDetailScreen(
+                                  index: index,
+                                  image: AssetImage(
+                                    exclusiveOfferProductsToShow.imageUrl,
+                                  ),
+                                  productImageUrl:
+                                      exclusiveOfferProductsToShow.imageUrl,
+                                  productName:
+                                      exclusiveOfferProductsToShow.productName,
+                                  productPrice:
+                                      exclusiveOfferProductsToShow.productPrice,
+                                  productPieces:
+                                      exclusiveOfferProductsToShow
+                                          .productPieces,
+                                ),
+                          ),
+                        );
                       },
                       index: index,
                       context: context,
@@ -257,7 +264,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 padding: REdgeInsets.only(left: 24.71),
                 itemCount: bestSellingProductsFromProvider.length,
                 itemBuilder: (context, index) {
-                  final BestSellingProductsToShow =
+                  final bestSellingProductsToShow =
                       bestSellingProductsFromProvider[index];
                   return RPadding(
                     padding: const EdgeInsets.only(right: 15.18, top: 20),
@@ -271,27 +278,27 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 (context) => ProductDetailScreen(
                                   index: index,
                                   productImageUrl:
-                                      BestSellingProductsToShow.imageUrl,
+                                      bestSellingProductsToShow.imageUrl,
                                   image: AssetImage(
-                                    BestSellingProductsToShow.imageUrl,
+                                    bestSellingProductsToShow.imageUrl,
                                   ),
 
                                   productName:
-                                      BestSellingProductsToShow.productName,
+                                      bestSellingProductsToShow.productName,
                                   productPrice:
-                                      BestSellingProductsToShow.productPrice,
+                                      bestSellingProductsToShow.productPrice,
                                   productPieces:
-                                      BestSellingProductsToShow.productPieces,
+                                      bestSellingProductsToShow.productPieces,
                                 ),
                           ),
                         );
                       },
                       productImage: AssetImage(
-                        BestSellingProductsToShow.imageUrl,
+                        bestSellingProductsToShow.imageUrl,
                       ),
-                      productName: BestSellingProductsToShow.productName,
-                      productPieces: BestSellingProductsToShow.productPieces,
-                      productPrice: BestSellingProductsToShow.productPrice,
+                      productName: bestSellingProductsToShow.productName,
+                      productPieces: bestSellingProductsToShow.productPieces,
+                      productPrice: bestSellingProductsToShow.productPrice,
                     ),
                   );
                 },
