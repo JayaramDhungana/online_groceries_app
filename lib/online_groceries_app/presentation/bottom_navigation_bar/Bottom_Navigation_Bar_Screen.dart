@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/account/account_ui.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/cart/cart_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/explore/explore_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/favourite/favourite_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/product_detail_provider.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/search_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/bottom_nav_bar_provider.dart';
 
@@ -36,6 +38,7 @@ class _BottomNavigationBarScreenState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(productDetailProvider).resetProductCount();
+      ref.read(searchProvider).addAllItems();
     });
   }
 
@@ -46,33 +49,48 @@ class _BottomNavigationBarScreenState
     return Scaffold(
       body: bottomNavBarItemList.elementAt(selectedIndexFromProvider),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            activeIcon: Image(
-              image: AssetImage("assets/bottom_nav_bar_shop_1.png"),
+            activeIcon: SvgPicture.asset(
+              "assets/bottom_nav_bar_shop_icon_active.svg",
+              semanticsLabel: "Shop Active Icon",
             ),
-            icon: Image(
-              image: AssetImage("assets/bottom_nav_bar_shop_unselec.png"),
+            icon: SvgPicture.asset(
+              "assets/bottom_nav_bar_shop_unactive.svg",
+              semanticsLabel: "Shop Unactive Icon",
             ),
 
+            // Image(
+            //   image: AssetImage("assets/bottom_nav_bar_shop_unselec.png"),
+            // ),
             label: 'Shop',
           ),
           BottomNavigationBarItem(
-            activeIcon: Image(
-              image: AssetImage("assets/bottom_nav_bar_explore.png"),
+            activeIcon: SvgPicture.asset(
+              "assets/bottom_nav_bar_explore_active.svg",
             ),
-            icon: Image(
-              image: AssetImage("assets/bottom_nav_bar_explore_unselect.png"),
+            //  Image(
+            //   image: AssetImage("assets/bottom_nav_bar_explore.png"),
+            // ),
+            icon: SvgPicture.asset(
+              "assets/bottom_nav_bar_explore_unactive.svg",
             ),
+            // Image(
+            //   image: AssetImage("assets/bottom_nav_bar_explore_unselect.png"),
+            // ),
             label: 'Explore',
           ),
           BottomNavigationBarItem(
-            activeIcon: Image(
-              image: AssetImage("assets/bottom_nav_bar_cart_select.png"),
+            activeIcon: SvgPicture.asset(
+              "assets/bottom_nav_bar_cart_active.svg",
             ),
-            icon: Image(
-              image: AssetImage("assets/bottom_nav_bar_cart_unselect.png"),
-            ),
+            // Image(
+            //   image: AssetImage("assets/bottom_nav_bar_cart_select.png"),
+            // ),
+            icon: SvgPicture.asset("assets/bottom_nav_bar_cart_unactive.svg"),
+            //  Image(
+            //   image: AssetImage("assets/bottom_nav_bar_cart_unselect.png"),
+            // ),
             label: 'Cart',
           ),
           BottomNavigationBarItem(
@@ -81,12 +99,16 @@ class _BottomNavigationBarScreenState
             label: 'Favorite',
           ),
           BottomNavigationBarItem(
-            activeIcon: Image(
-              image: AssetImage("assets/bottom_nav_bar_account_select.png"),
-            ),
-            icon: Image(
-              image: AssetImage("assets/bottom_nav_bar_account_unselect.png"),
-            ),
+            activeIcon: 
+            SvgPicture.asset("assets/bottom_nav_bar_account_active.svg"),
+            // Image(
+            //   image: AssetImage("assets/bottom_nav_bar_account_select.png"),
+            // ),
+            icon:
+              SvgPicture.asset("assets/bottom_nav_bar_account_unselect.svg"),
+            //  Image(
+            //   image: AssetImage("assets/bottom_nav_bar_account_unselect.png"),
+            // ),
             label: "Account",
           ),
         ],

@@ -15,10 +15,12 @@ import 'package:online_groceries_app/online_groceries_app/presentation/provider/
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/expore_item_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/favourite_Item_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/groceries_provider.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/provider/search_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/addToCardButton.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/card_widget.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/groceries_type_widget.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/products_title_widget.dart';
+import 'package:online_groceries_app/online_groceries_app/presentation/widgets/search_text_form_field_widget.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -41,6 +43,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ref.read(groceriesProvider).loadGroceriesProduct();
       ref.read(favouriteItemProvider).loadFavouriteItemsFromSharedPreferences();
       ref.read(cartProvider).loadItemsFromSharedPreferences();
+      ref.read(searchProvider).onQueryChanged("");
     });
   }
 
@@ -59,6 +62,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ref.watch(bestSellingProvider).bestSellingProduct;
     final groceriesProductsFromProvider =
         ref.watch(groceriesProvider).groceriesProducts;
+
+    final searchResultItemFromProvider = ref.watch(searchProvider).searchResult;
+    bool isSearchResultAvailable =
+        searchResultItemFromProvider.isEmpty ? false : true;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -102,36 +109,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               ),
             ),
-            RPadding(
+            searchTextFormFieldWidget(
+              ref: ref,
+              focusNode: searchFocusNode,
               padding: EdgeInsets.only(
                 left: 24.71,
                 right: 25.29,
                 top: 20,
                 bottom: 20,
-              ),
-              child: TextFormField(
-                focusNode: searchFocusNode,
-                onTapOutside: (event) {
-                  searchFocusNode.unfocus();
-                },
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  // prefix: Image(image: AssetImage("assets/search_icon.png")),
-                  hintText: "Search Store",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Gilory',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14.sp,
-                    color: Color(0xFF7C7C7C),
-                  ),
-                  filled: true,
-                  fillColor: Color(0xFFF2F3F2),
-
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.r),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
               ),
             ),
             SizedBox(
@@ -143,250 +128,343 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
 
-            //This is for products Texts only
-            productsTitleWidget(
-              productsTitle: "Exclusive Offer",
-              onTap: () {
-                ref
-                    .read(exploreItemProvider)
-                    .loadBeveragesProducts(
-                      dataListFromUI: exclusiveOfferDataList,
-                    );
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder:
-                        (context) => ExploreProductItemScreen(
-                          screenName: "Exclusive Offer",
+            //This sized Box widget is only for Implement Search Funtionality
+            //If we remove this sized box nothing is happened;
+            isSearchResultAvailable
+                ? SizedBox(
+                  height: 500.h,
+                  child: GridView.builder(
+                    scrollDirection: Axis.vertical,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 14.8.w,
+                      mainAxisSpacing: 15.04.h,
+                      mainAxisExtent: 248.51.h,
+                    ),
+                    itemCount: searchResultItemFromProvider.length,
+                    itemBuilder: (context, index) {
+                      debugPrint("The Coming index is $index");
+                      final searchResultToShow =
+                          searchResultItemFromProvider[index];
+                      return cardWidget(
+                        productImage: AssetImage(
+                          searchResultToShow["imageUrl"],
                         ),
-                  ),
-                );
-              },
-            ),
-
-            //This is for Card of Showing Products.
-            SizedBox(
-              height: 268.h,
-              child: ListView.builder(
-                padding: REdgeInsets.only(left: 24.71),
-                scrollDirection: Axis.horizontal,
-                itemCount: exclusiveOfferProductsFromProvider.length,
-                itemBuilder: (context, index) {
-                  final exclusiveOfferProductsToShow =
-                      exclusiveOfferProductsFromProvider[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 15.18, top: 20),
-                    child: cardWidget(
-                      onTap: () {
-                        //using Go Router GO
-                        // try {
-                        //   debugPrint("errror is  started");
-                        //   context.go(
-                        //     "/Product_details_screen",
-                        //     extra: {
-                        //       'image': AssetImage(
-                        //         exclusiveOfferProductsToShow.imageUrl,
-                        //       ),
-                        //       'productImageUrl':
-                        //           exclusiveOfferProductsToShow.imageUrl,
-                        //       'productName':
-                        //           exclusiveOfferProductsToShow.productName,
-                        //       'index': index,
-                        //       'productPrice':
-                        //           exclusiveOfferProductsToShow.productPrice,
-                        //       'productPieces':
-                        //           exclusiveOfferProductsToShow.productPieces,
-                        //     },
-                        //   );
-                        //   debugPrint("errror is  ended");
-                        // } catch (e) {
-                        //   debugPrint("errror is  ${e.toString()}");
-                        // }
-
-                        //Using Navigator.push
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (context) => ProductDetailScreen(
-                                  index: index,
+                        productName: searchResultToShow["productName"],
+                        productPieces: searchResultToShow["productPieces"],
+                        productPrice: searchResultToShow["productPrice"],
+                        index: index,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ProductDetailScreen(
                                   image: AssetImage(
-                                    exclusiveOfferProductsToShow.imageUrl,
+                                    searchResultToShow["imageUrl"],
                                   ),
                                   productImageUrl:
-                                      exclusiveOfferProductsToShow.imageUrl,
+                                      searchResultToShow["productName"],
                                   productName:
-                                      exclusiveOfferProductsToShow.productName,
-                                  productPrice:
-                                      exclusiveOfferProductsToShow.productPrice,
-                                  productPieces:
-                                      exclusiveOfferProductsToShow
-                                          .productPieces,
-                                ),
-                          ),
-                        );
-                      },
-                      index: index,
-                      context: context,
-                      productImage: AssetImage(
-                        exclusiveOfferProductsToShow.imageUrl,
-                      ),
-                      productName: exclusiveOfferProductsToShow.productName,
-                      productPieces: exclusiveOfferProductsToShow.productPieces,
-                      productPrice: exclusiveOfferProductsToShow.productPrice,
-                    ),
-                  );
-                },
-              ),
-            ),
-            productsTitleWidget(
-              productsTitle: "Best Selling",
-              onTap: () {
-                ref
-                    .read(exploreItemProvider)
-                    .loadBeveragesProducts(dataListFromUI: bestSellingDataList);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder:
-                        (context) => ExploreProductItemScreen(
-                          screenName: "Best Selling",
-                        ),
-                  ),
-                );
-              },
-            ),
-            SizedBox(
-              height: 268.h,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: REdgeInsets.only(left: 24.71),
-                itemCount: bestSellingProductsFromProvider.length,
-                itemBuilder: (context, index) {
-                  final bestSellingProductsToShow =
-                      bestSellingProductsFromProvider[index];
-                  return RPadding(
-                    padding: const EdgeInsets.only(right: 15.18, top: 20),
-                    child: cardWidget(
-                      index: index,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (context) => ProductDetailScreen(
+                                      searchResultToShow["productName"],
                                   index: index,
-                                  productImageUrl:
-                                      bestSellingProductsToShow.imageUrl,
-                                  image: AssetImage(
-                                    bestSellingProductsToShow.imageUrl,
-                                  ),
-
-                                  productName:
-                                      bestSellingProductsToShow.productName,
                                   productPrice:
-                                      bestSellingProductsToShow.productPrice,
+                                      searchResultToShow["productPrice"],
                                   productPieces:
-                                      bestSellingProductsToShow.productPieces,
-                                ),
-                          ),
-                        );
-                      },
-                      productImage: AssetImage(
-                        bestSellingProductsToShow.imageUrl,
-                      ),
-                      productName: bestSellingProductsToShow.productName,
-                      productPieces: bestSellingProductsToShow.productPieces,
-                      productPrice: bestSellingProductsToShow.productPrice,
-                    ),
-                  );
-                },
-              ),
-            ),
-            productsTitleWidget(
-              productsTitle: "Groceries",
-              onTap: () {
-                ref
-                    .read(exploreItemProvider)
-                    .loadBeveragesProducts(dataListFromUI: groceriesDataList);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder:
-                        (context) =>
-                            ExploreProductItemScreen(screenName: "Groceries"),
+                                      searchResultToShow["productPieces"],
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 24.71),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    groceriesTypeWidget(
-                      color: Color(0xFFFEF1E4),
-                      image: AssetImage("assets/pulses_Image.png"),
-                      text: "Pulses",
-                    ),
-                    SizedBox(width: 14.95),
-                    groceriesTypeWidget(
-                      color: Color(0xFFE5F3EA),
-                      image: AssetImage("assets/rice_image.png"),
-                      text: "Rice",
-                    ),
-                  ],
+                )
+                : SizedBox(
+                  child: Column(
+                    children: [
+                      productsTitleWidget(
+                        productsTitle: "Exclusive Offer",
+                        onTap: () {
+                          ref
+                              .read(exploreItemProvider)
+                              .loadBeveragesProducts(
+                                dataListFromUI: exclusiveOfferDataList,
+                              );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => ExploreProductItemScreen(
+                                    screenName: "Exclusive Offer",
+                                  ),
+                            ),
+                          );
+                        },
+                      ),
+
+                      //This is for Card of Showing Products.
+                      SizedBox(
+                        height: 268.h,
+                        child: ListView.builder(
+                          padding: REdgeInsets.only(left: 24.71),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: exclusiveOfferProductsFromProvider.length,
+                          itemBuilder: (context, index) {
+                            final exclusiveOfferProductsToShow =
+                                exclusiveOfferProductsFromProvider[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                right: 15.18,
+                                top: 20,
+                              ),
+                              child: cardWidget(
+                                onTap: () {
+                                  //using Go Router GO
+                                  // try {
+                                  //   debugPrint("errror is  started");
+                                  //   context.go(
+                                  //     "/Product_details_screen",
+                                  //     extra: {
+                                  //       'image': AssetImage(
+                                  //         exclusiveOfferProductsToShow.imageUrl,
+                                  //       ),
+                                  //       'productImageUrl':
+                                  //           exclusiveOfferProductsToShow.imageUrl,
+                                  //       'productName':
+                                  //           exclusiveOfferProductsToShow.productName,
+                                  //       'index': index,
+                                  //       'productPrice':
+                                  //           exclusiveOfferProductsToShow.productPrice,
+                                  //       'productPieces':
+                                  //           exclusiveOfferProductsToShow.productPieces,
+                                  //     },
+                                  //   );
+                                  //   debugPrint("errror is  ended");
+                                  // } catch (e) {
+                                  //   debugPrint("errror is  ${e.toString()}");
+                                  // }
+
+                                  //Using Navigator.push
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => ProductDetailScreen(
+                                            index: index,
+                                            image: AssetImage(
+                                              exclusiveOfferProductsToShow
+                                                  .imageUrl,
+                                            ),
+                                            productImageUrl:
+                                                exclusiveOfferProductsToShow
+                                                    .imageUrl,
+                                            productName:
+                                                exclusiveOfferProductsToShow
+                                                    .productName,
+                                            productPrice:
+                                                exclusiveOfferProductsToShow
+                                                    .productPrice,
+                                            productPieces:
+                                                exclusiveOfferProductsToShow
+                                                    .productPieces,
+                                          ),
+                                    ),
+                                  );
+                                },
+                                index: index,
+                                context: context,
+                                productImage: AssetImage(
+                                  exclusiveOfferProductsToShow.imageUrl,
+                                ),
+                                productName:
+                                    exclusiveOfferProductsToShow.productName,
+                                productPieces:
+                                    exclusiveOfferProductsToShow.productPieces,
+                                productPrice:
+                                    exclusiveOfferProductsToShow.productPrice,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      productsTitleWidget(
+                        productsTitle: "Best Selling",
+                        onTap: () {
+                          ref
+                              .read(exploreItemProvider)
+                              .loadBeveragesProducts(
+                                dataListFromUI: bestSellingDataList,
+                              );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => ExploreProductItemScreen(
+                                    screenName: "Best Selling",
+                                  ),
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: 268.h,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          padding: REdgeInsets.only(left: 24.71),
+                          itemCount: bestSellingProductsFromProvider.length,
+                          itemBuilder: (context, index) {
+                            final bestSellingProductsToShow =
+                                bestSellingProductsFromProvider[index];
+                            return RPadding(
+                              padding: const EdgeInsets.only(
+                                right: 15.18,
+                                top: 20,
+                              ),
+                              child: cardWidget(
+                                index: index,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => ProductDetailScreen(
+                                            index: index,
+                                            productImageUrl:
+                                                bestSellingProductsToShow
+                                                    .imageUrl,
+                                            image: AssetImage(
+                                              bestSellingProductsToShow
+                                                  .imageUrl,
+                                            ),
+
+                                            productName:
+                                                bestSellingProductsToShow
+                                                    .productName,
+                                            productPrice:
+                                                bestSellingProductsToShow
+                                                    .productPrice,
+                                            productPieces:
+                                                bestSellingProductsToShow
+                                                    .productPieces,
+                                          ),
+                                    ),
+                                  );
+                                },
+                                productImage: AssetImage(
+                                  bestSellingProductsToShow.imageUrl,
+                                ),
+                                productName:
+                                    bestSellingProductsToShow.productName,
+                                productPieces:
+                                    bestSellingProductsToShow.productPieces,
+                                productPrice:
+                                    bestSellingProductsToShow.productPrice,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      productsTitleWidget(
+                        productsTitle: "Groceries",
+                        onTap: () {
+                          ref
+                              .read(exploreItemProvider)
+                              .loadBeveragesProducts(
+                                dataListFromUI: groceriesDataList,
+                              );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => ExploreProductItemScreen(
+                                    screenName: "Groceries",
+                                  ),
+                            ),
+                          );
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24.71),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              groceriesTypeWidget(
+                                color: Color(0xFFFEF1E4),
+                                image: AssetImage("assets/pulses_Image.png"),
+                                text: "Pulses",
+                              ),
+                              SizedBox(width: 14.95),
+                              groceriesTypeWidget(
+                                color: Color(0xFFE5F3EA),
+                                image: AssetImage("assets/rice_image.png"),
+                                text: "Rice",
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 268.h,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: groceriesProductsFromProvider.length,
+                          itemBuilder: (context, index) {
+                            final groceriesProductsToShow =
+                                groceriesProductsFromProvider[index];
+                            return RPadding(
+                              padding: const EdgeInsets.only(left: 24.71),
+                              child: cardWidget(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => ProductDetailScreen(
+                                            productImageUrl:
+                                                groceriesProductsToShow
+                                                    .imageUrl,
+                                            index: index,
+                                            image: AssetImage(
+                                              groceriesProductsToShow.imageUrl,
+                                            ),
+
+                                            productName:
+                                                groceriesProductsToShow
+                                                    .productName,
+                                            productPrice:
+                                                groceriesProductsToShow
+                                                    .productPrice,
+                                            productPieces:
+                                                groceriesProductsToShow
+                                                    .productPieces,
+                                          ),
+                                    ),
+                                  );
+                                },
+                                index: index,
+                                productImage: AssetImage(
+                                  groceriesProductsToShow.imageUrl,
+                                ),
+                                productName:
+                                    groceriesProductsToShow.productName,
+                                productPieces:
+                                    groceriesProductsToShow.productPieces,
+                                productPrice:
+                                    groceriesProductsToShow.productPrice,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 268.h,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: groceriesProductsFromProvider.length,
-                itemBuilder: (context, index) {
-                  final groceriesProductsToShow =
-                      groceriesProductsFromProvider[index];
-                  return RPadding(
-                    padding: const EdgeInsets.only(left: 24.71),
-                    child: cardWidget(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder:
-                                (context) => ProductDetailScreen(
-                                  productImageUrl:
-                                      groceriesProductsToShow.imageUrl,
-                                  index: index,
-                                  image: AssetImage(
-                                    groceriesProductsToShow.imageUrl,
-                                  ),
 
-                                  productName:
-                                      groceriesProductsToShow.productName,
-                                  productPrice:
-                                      groceriesProductsToShow.productPrice,
-                                  productPieces:
-                                      groceriesProductsToShow.productPieces,
-                                ),
-                          ),
-                        );
-                      },
-                      index: index,
-                      productImage: AssetImage(
-                        groceriesProductsToShow.imageUrl,
-                      ),
-                      productName: groceriesProductsToShow.productName,
-                      productPieces: groceriesProductsToShow.productPieces,
-                      productPrice: groceriesProductsToShow.productPrice,
-                    ),
-                  );
-                },
-              ),
-            ),
+            //This is for products Texts only
           ],
         ),
       ),

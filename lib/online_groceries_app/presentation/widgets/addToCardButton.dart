@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 Container addToCardButton() {
   return Container(
@@ -23,7 +24,8 @@ Container addToCardButton() {
         child: SizedBox(
           width: 17.w,
           height: 17.h,
-          child: Image(image: AssetImage("assets/add_image.png")),
+          child: SvgPicture.asset("assets/plus_icon_svg.svg"),
+          // Image(image: AssetImage("assets/add_image.png")),
         ),
       ),
     ),

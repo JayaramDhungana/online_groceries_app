@@ -6,14 +6,17 @@ import 'package:online_groceries_app/online_groceries_app/presentation/provider/
 RPadding searchTextFormFieldWidget({
   required FocusNode focusNode,
   required WidgetRef ref,
+  required EdgeInsets padding
 }) {
   return RPadding(
-    padding: EdgeInsets.only(left: 24.71, right: 25.29, top: 20, bottom: 20),
+    padding: padding,
+    // EdgeInsets.only(left: 24.71, right: 25.29, top: 20, bottom: 20),
     child: TextFormField(
       focusNode: focusNode,
       onTapOutside: (event) {
         focusNode.unfocus();
       },
+      //Search Functionality ko lagi
       onChanged: (value) {
         ref.read(searchProvider).onQueryChanged(value);
       },

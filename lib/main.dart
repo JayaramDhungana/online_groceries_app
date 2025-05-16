@@ -13,7 +13,7 @@ void main() {
 }
 
 final GoRouter _router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/bottom_nav_bar',
   routes: [
     GoRoute(
       name: 'splash_screen',
