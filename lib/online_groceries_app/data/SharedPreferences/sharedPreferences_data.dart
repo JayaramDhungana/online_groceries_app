@@ -9,6 +9,8 @@ class SharedpreferencesData {
   static String keyForCartItem = "cart_items_in_shared_preferences";
   static String keyForFavouriteItem = "favourite_items_in_shared_preferences";
 
+  static String keyForUserInformation = "user_information";
+
   //To Store Cart Item to the Shared Preferences
   static Future<void> addCartItemInSharedPreferences(
     List<CartDataModel> cartItems,
@@ -53,5 +55,23 @@ class SharedpreferencesData {
       " Favourite Data is Successfully Extracted $favouriteItemsFromSharedPreferences",
     );
     return favouriteItemsFromSharedPreferences;
+  }
+
+  /************************* to add user data */
+  static Future<void> addUserData(String userDataFromProvider) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> storedUserData =
+        prefs.getStringList(keyForUserInformation) ?? [];
+    storedUserData.add(userDataFromProvider);
+    prefs.setStringList(keyForUserInformation, storedUserData);
+    debugPrint("User data is successfully stored $storedUserData ");
+  }
+
+  /************** To remove user data */
+  static Future<List<String>> extractUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> storedUserData =
+        prefs.getStringList(keyForUserInformation) ?? [];
+    return storedUserData;
   }
 }

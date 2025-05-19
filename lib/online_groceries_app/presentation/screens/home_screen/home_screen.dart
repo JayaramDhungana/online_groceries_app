@@ -43,7 +43,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ref.read(groceriesProvider).loadGroceriesProduct();
       ref.read(favouriteItemProvider).loadFavouriteItemsFromSharedPreferences();
       ref.read(cartProvider).loadItemsFromSharedPreferences();
-      ref.read(searchProvider).onQueryChanged("");
+      ref.read(searchProvider).onQueryChanged("",context);
     });
   }
 
@@ -110,6 +110,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
             searchTextFormFieldWidget(
+              context: context,
               ref: ref,
               focusNode: searchFocusNode,
               padding: EdgeInsets.only(

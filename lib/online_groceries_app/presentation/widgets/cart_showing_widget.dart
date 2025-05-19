@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/cart_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/plus_or_minus_button_widget.dart';
 import 'dart:math' as math;
@@ -62,11 +63,14 @@ Column cartShowingWidget({
                           },
                           child: Hero(
                             tag: productName,
-                            child: Image(
-                              image: AssetImage("assets/close_icon.png"),
-                              height: 14.h,
-                              width: 14.16.w,
+                            child: SvgPicture.asset(
+                              "assets/close_icon_svg.svg",
                             ),
+                            // Image(
+                            //   image: AssetImage("assets/close_icon.png"),
+                            //   height: 14.h,
+                            //   width: 14.16.w,
+                            // ),
                           ),
                         ),
                       ],
@@ -107,12 +111,14 @@ Column cartShowingWidget({
                               children: [
                                 //THis is minus Button
                                 plusOrMinusButtonWidget(
-                                  image: Image(
-                                    image: AssetImage("assets/minus_icon.png"),
-                                    height: 2.84.h,
-                                    width: 17.w,
-                                  ),
+                                  image: "assets/minus_icon.svg",
 
+                                  //  Image(
+                                  //   image:
+                                  //   AssetImage("assets/minus_icon.png"),
+                                  //   height: 2.84.h,
+                                  //   width: 17.w,
+                                  // ),
                                   onTap: () {
                                     ref
                                         .read(cartProvider)
@@ -148,9 +154,10 @@ Column cartShowingWidget({
 
                                 //This is For Plus Icon
                                 plusOrMinusButtonWidget(
-                                  image: Image(
-                                    image: AssetImage("assets/plus_icon.png"),
-                                  ),
+                                  image: "assets/plus_icon_svg_format.svg",
+                                  //  Image(
+                                  //   image: AssetImage("assets/plus_icon.png"),
+                                  // ),
                                   onTap: () {
                                     ref
                                         .read(cartProvider)

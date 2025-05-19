@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_groceries_app/online_groceries_app/data/favourite/favourite_data_model.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/bottom_navigation_bar/Bottom_Navigation_Bar_Screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/product_detail_screen/product_detail_screen.dart';
@@ -138,12 +139,19 @@ SizedBox favouriteItemsWidget({
                                   ),
                                 ),
                                 SizedBox(width: 16.w),
-                                Image(
-                                  image: AssetImage("assets/back arrow.png"),
-                                  color: Color(0xFF181725),
+                                SvgPicture.asset(
+                                  "assets/back_arrow_svg.svg",
                                   height: 14.h,
                                   width: 8.4.w,
                                 ),
+
+                                // Image(
+                                //   image:
+                                //   AssetImage("assets/back arrow.png"),
+                                //   color: Color(0xFF181725),
+                                //   height: 14.h,
+                                //   width: 8.4.w,
+                                // ),
                               ],
                             ),
                           ),

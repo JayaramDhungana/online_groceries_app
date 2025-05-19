@@ -24,7 +24,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(exploreProvider).loadExploreItems();
-      ref.read(searchProvider).onQueryChanged("");
+      ref.read(searchProvider).onQueryChanged("", context);
     });
   }
 
@@ -64,6 +64,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
       body: Column(
         children: [
           searchTextFormFieldWidget(
+            context: context,
             padding: EdgeInsets.only(
               left: 24.71,
               right: 25.29,

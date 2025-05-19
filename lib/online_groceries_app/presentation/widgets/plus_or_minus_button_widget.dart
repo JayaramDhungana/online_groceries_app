@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 InkWell plusOrMinusButtonWidget({
-  required Image image,
+  required String image,
   required void Function()? onTap,
 }) {
   return InkWell(
@@ -16,7 +17,9 @@ InkWell plusOrMinusButtonWidget({
         borderRadius: BorderRadius.circular(17.r),
         border: Border.all(color: Color(0xFFF0F0F0)),
       ),
-      child: Center(child: image),
+      child: Center(
+        child:SvgPicture.asset(image)
+        ),
     ),
   );
 }

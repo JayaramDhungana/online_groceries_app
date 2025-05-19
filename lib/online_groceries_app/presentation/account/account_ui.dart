@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/provider/user_information_provider.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:online_groceries_app/online_groceries_app/presentation/widgets/account_menu_widget.dart';
@@ -91,7 +92,6 @@ class _AccountUiState extends ConsumerState<AccountUi> {
                                               key: formKey,
                                               child: TextFormField(
                                                 focusNode: userNameFocusNode,
-
                                                 validator: (value) {
                                                   if (value == null ||
                                                       value.isEmpty) {
@@ -143,11 +143,16 @@ class _AccountUiState extends ConsumerState<AccountUi> {
                                     },
                                   );
                                 },
-                                child: Image(
-                                  image: AssetImage("assets/edit_icon.png"),
+                                child: SvgPicture.asset(
+                                  "assets/edit_icon_svg.svg",
                                   height: 15.h,
                                   width: 15.w,
                                 ),
+                                // Image(
+                                //   image: AssetImage("assets/edit_icon.png"),
+                                //   height: 15.h,
+                                //   width: 15.w,
+                                // ),
                               ),
                             ],
                           ),
@@ -177,7 +182,8 @@ class _AccountUiState extends ConsumerState<AccountUi> {
                     detail: "Your order count is 5",
                   );
                 },
-                leadingImage: AssetImage("assets/Orders icon.png"),
+                leadingImage: "assets/Orders icon.svg",
+                // AssetImage("assets/Orders icon.png"),
                 title: "Orders",
               ),
               accountMenuWidget(
@@ -189,7 +195,8 @@ class _AccountUiState extends ConsumerState<AccountUi> {
                         "Name:${ref.watch(userInformationProvider).userName}\nEmail:${ref.watch(userInformationProvider).email}",
                   );
                 },
-                leadingImage: AssetImage("assets/My Details icon.png"),
+                leadingImage: "assets/My Details icon.svg",
+                // AssetImage("assets/My Details icon.png"),
                 title: "My Details",
               ),
               accountMenuWidget(
@@ -200,7 +207,8 @@ class _AccountUiState extends ConsumerState<AccountUi> {
                     detail: "alkjsdhflakdsjfkkasdklfh",
                   );
                 },
-                leadingImage: AssetImage("assets/Delicery address.png"),
+                leadingImage: "assets/Delicery address.svg",
+                //  AssetImage("assets/Delicery address.png"),
                 title: "Delivery Address",
               ),
               accountMenuWidget(
@@ -211,7 +219,8 @@ class _AccountUiState extends ConsumerState<AccountUi> {
                     detail: "adfaldkjf asdflkjasf asldkfja ",
                   );
                 },
-                leadingImage: AssetImage("assets/payment_methods.png"),
+                leadingImage: "assets/payments_methods_svg.svg",
+                //  AssetImage("assets/payment_methods.png"),
                 title: "Payment Methods",
               ),
               accountMenuWidget(
@@ -222,7 +231,8 @@ class _AccountUiState extends ConsumerState<AccountUi> {
                     detail: "askdjfh adkjfh alakjdhf ",
                   );
                 },
-                leadingImage: AssetImage("assets/promo_card_icon.png"),
+                leadingImage: "assets/promo_cord.svg",
+                // AssetImage("assets/promo_card_icon.png"),
                 title: "Promo Cord",
               ),
               accountMenuWidget(
@@ -233,7 +243,8 @@ class _AccountUiState extends ConsumerState<AccountUi> {
                     detail: "aksjhdffl askldfjh laksjdhf",
                   );
                 },
-                leadingImage: AssetImage("assets/bell_icon.png"),
+                leadingImage: "assets/bell_icon_svg.svg",
+                // AssetImage("assets/bell_icon.png"),
                 title: "Notifications",
               ),
               accountMenuWidget(
@@ -244,7 +255,8 @@ class _AccountUiState extends ConsumerState<AccountUi> {
                     detail: "ALSDKJFH ALSKDJHF ",
                   );
                 },
-                leadingImage: AssetImage("assets/help_icon.png"),
+                leadingImage: "assets/help_icon_svg.svg",
+                // AssetImage("assets/help_icon.png"),
                 title: "Help",
               ),
               accountMenuWidget(
@@ -255,7 +267,8 @@ class _AccountUiState extends ConsumerState<AccountUi> {
                     detail: "App Version is 2.1.0",
                   );
                 },
-                leadingImage: AssetImage("assets/about_icon.png"),
+                leadingImage: "assets/about_icon_svg.svg",
+                // AssetImage("assets/about_icon.png"),
                 title: "About",
               ),
               RPadding(

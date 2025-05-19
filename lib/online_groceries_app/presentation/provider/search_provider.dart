@@ -51,7 +51,7 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onQueryChanged(String queryFromUI) {
+  void onQueryChanged(String queryFromUI, BuildContext context) {
     searchResult.removeRange(0, searchResult.length);
     debugPrint(" Query from UI $queryFromUI");
 
@@ -69,6 +69,9 @@ class SearchProvider extends ChangeNotifier {
           debugPrint("Searched Product is $searchResult");
         } else {
           debugPrint("Product is not found");
+          // ScaffoldMessenger.of(
+          //   context,
+          // ).showSnackBar(SnackBar(content: Text("Product is not found")));
           // searchResult.removeRange(0, searchResult.length);
         }
       }

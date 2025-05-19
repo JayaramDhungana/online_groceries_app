@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 InkWell accountMenuWidget({
-  required ImageProvider<Object> leadingImage,
+  required String leadingImage,
   required String title,
   required void Function()? onTap,
 }) {
@@ -42,7 +43,8 @@ InkWell accountMenuWidget({
                   height: 22.h,
                   child: Row(
                     children: [
-                      Image(image: leadingImage, height: 20.h, width: 18.w),
+                      SvgPicture.asset(leadingImage),
+                      // Image(image: leadingImage, height: 20.h, width: 18.w),
                       SizedBox(width: 20.49),
                       Text(
                         title,
@@ -56,11 +58,16 @@ InkWell accountMenuWidget({
                         ),
                       ),
                       Spacer(),
-                      Image(
-                        image: AssetImage("assets/back arrow.png"),
+                      SvgPicture.asset(
+                        "assets/back_arrow_svg.svg",
                         height: 14.h,
                         width: 8.4.w,
                       ),
+                      // Image(
+                      //   image: AssetImage("assets/back arrow.png"),
+                      //   height: 14.h,
+                      //   width: 8.4.w,
+                      // ),
                     ],
                   ),
                 ),

@@ -6,7 +6,8 @@ import 'package:online_groceries_app/online_groceries_app/presentation/provider/
 RPadding searchTextFormFieldWidget({
   required FocusNode focusNode,
   required WidgetRef ref,
-  required EdgeInsets padding
+  required EdgeInsets padding,
+  required BuildContext context
 }) {
   return RPadding(
     padding: padding,
@@ -18,7 +19,7 @@ RPadding searchTextFormFieldWidget({
       },
       //Search Functionality ko lagi
       onChanged: (value) {
-        ref.read(searchProvider).onQueryChanged(value);
+        ref.read(searchProvider).onQueryChanged(value,context);
       },
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.search),
